@@ -3,14 +3,13 @@ package org.nprodanov.lox.scanner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 public class Scanner {
 
-    private final CharacterStream stream;
+    private final CharacterStreamImpl stream;
 
     public Scanner(String raw) {
-        this.stream = new CharacterStream(raw);
+        this.stream = new CharacterStreamImpl(raw);
     }
 
     public List<Token> read() {
@@ -26,7 +25,7 @@ public class Scanner {
         return List.copyOf(tokens);
     }
 
-    private static Optional<Token> readSingleCharacterTypes(CharacterStream stream) {
+    private static Optional<Token> readSingleCharacterTypes(CharacterStreamImpl stream) {
         return Optional.ofNullable(
                 switch (stream.get()) {
                     case '{' -> Token.from(TokenType.LEFT_BRACKET, stream);
@@ -45,14 +44,14 @@ public class Scanner {
         );
     }
 
-    private static Optional<Token> throwException(CharacterStream stream) {
+    private static Optional<Token> throwException(CharacterStreamImpl stream) {
         if(List.of('\n', '\t', ' ').contains(stream.get())) {
             return Optional.empty();
         }
         throw new RuntimeException("Invalid character '"+stream.get()+"'");
     }
 
-    private static Optional<Token> readDoubleCharacterTypes(CharacterStream stream) {
+    private static Optional<Token> readDoubleCharacterTypes(CharacterStreamImpl stream) {
         char curr = stream.get();
         if(stream.next().map(c-> c != '=').orElse(true)) {
             return Optional.empty();

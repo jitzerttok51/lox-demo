@@ -5,5 +5,5 @@ import java.util.Optional;
 @FunctionalInterface
 public interface TokenProcessor {
 
-    Optional<Token> process(CharacterStream stream);
+    Optional<Token> process(CharacterStreamImpl stream);
 }
