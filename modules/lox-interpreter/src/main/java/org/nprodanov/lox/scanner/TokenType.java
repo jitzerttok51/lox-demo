@@ -1,0 +1,9 @@
+package org.nprodanov.lox.scanner;
+
+public enum TokenType {
+    DOT, COMMA,
+    LEFT_BRACE, RIGHT_BRACE,
+    LEFT_BRACKET, RIGHT_BRACKET,
+    PLUS, MINUS, ASTERIX, SLASH, EQUALS,
+    EQUALS_EQUALS, LESS_EQUALS, GREATER_EQUALS, BANG_EQUALS
+}
