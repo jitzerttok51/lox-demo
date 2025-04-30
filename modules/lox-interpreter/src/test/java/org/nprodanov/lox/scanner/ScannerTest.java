@@ -43,8 +43,8 @@ class ScannerTest {
         List<Token> tokens = scanner.read();
 
         assertEquals(new Token(TokenType.BANG_EQUALS, "!=", 0, 1, 1), tokens.getFirst());
-        assertEquals(new Token(TokenType.EQUALS_EQUALS, "==", 1, 2, 1), tokens.get(1));
-        assertEquals(new Token(TokenType.ASTERIX, "*", 2, 3, 1), tokens.get(2));
-        assertEquals(new Token(TokenType.EQUALS, "=", 3, 4, 1), tokens.get(3));
+        assertEquals(new Token(TokenType.EQUALS_EQUALS, "==", 3, 4, 1), tokens.get(1));
+        assertEquals(new Token(TokenType.ASTERIX, "*", 6, 7, 1), tokens.get(2));
+        assertEquals(new Token(TokenType.EQUALS, "=", 7, 8, 1), tokens.get(3));
     }
 }

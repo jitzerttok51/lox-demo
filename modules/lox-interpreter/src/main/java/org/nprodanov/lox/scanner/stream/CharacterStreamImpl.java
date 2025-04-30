@@ -1,8 +1,8 @@
-package org.nprodanov.lox.scanner;
+package org.nprodanov.lox.scanner.stream;
 
 import java.util.Optional;
 
-public class CharacterStreamV2 implements MarkableCharacterStream {
+public class CharacterStreamImpl implements MarkableCharacterStream {
 
     private record Position(int index, int line, int position) {
 
@@ -19,7 +19,7 @@ public class CharacterStreamV2 implements MarkableCharacterStream {
 
     private Position mark;
 
-    public CharacterStreamV2(String raw) {
+    public CharacterStreamImpl(String raw) {
         this.raw = raw;
         rewind();
     }

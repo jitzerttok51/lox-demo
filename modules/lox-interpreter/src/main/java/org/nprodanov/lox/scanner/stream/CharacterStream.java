@@ -1,4 +1,4 @@
-package org.nprodanov.lox.scanner;
+package org.nprodanov.lox.scanner.stream;
 
 import java.util.Optional;
 

@@ -1,12 +1,15 @@
 package org.nprodanov.lox.scanner;
 
+import org.nprodanov.lox.scanner.stream.CharacterStreamImpl;
+import org.nprodanov.lox.scanner.stream.MarkableCharacterStream;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class Scanner {
 
-    private final CharacterStreamImpl stream;
+    private final MarkableCharacterStream stream;
 
     public Scanner(String raw) {
         this.stream = new CharacterStreamImpl(raw);
@@ -25,7 +28,7 @@ public class Scanner {
         return List.copyOf(tokens);
     }
 
-    private static Optional<Token> readSingleCharacterTypes(CharacterStreamImpl stream) {
+    private static Optional<Token> readSingleCharacterTypes(MarkableCharacterStream stream) {
         return Optional.ofNullable(
                 switch (stream.get()) {
                     case '{' -> Token.from(TokenType.LEFT_BRACKET, stream);
@@ -44,14 +47,14 @@ public class Scanner {
         );
     }
 
-    private static Optional<Token> throwException(CharacterStreamImpl stream) {
+    private static Optional<Token> throwException(MarkableCharacterStream stream) {
         if(List.of('\n', '\t', ' ').contains(stream.get())) {
             return Optional.empty();
         }
         throw new RuntimeException("Invalid character '"+stream.get()+"'");
     }
 
-    private static Optional<Token> readDoubleCharacterTypes(CharacterStreamImpl stream) {
+    private static Optional<Token> readDoubleCharacterTypes(MarkableCharacterStream stream) {
         char curr = stream.get();
         if(stream.next().map(c-> c != '=').orElse(true)) {
             return Optional.empty();
@@ -93,10 +96,10 @@ public class Scanner {
 
     private TokenProcessor wrap(TokenProcessor processor) {
         return cs -> {
-          cs.push();
+          cs.mark();
           Optional<Token> token = processor.process(cs);
           if(token.isEmpty()) {
-              cs.pop();
+              cs.gotoMark();
           }
           return token;
         };

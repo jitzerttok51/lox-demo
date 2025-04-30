@@ -1,6 +1,9 @@
 package org.nprodanov.lox.scanner;
 
 import org.junit.jupiter.api.Test;
+import org.nprodanov.lox.scanner.stream.CharacterStream;
+import org.nprodanov.lox.scanner.stream.CharacterStreamImpl;
+import org.nprodanov.lox.scanner.stream.MarkableCharacterStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,7 +12,7 @@ class CharacterStreamTest {
     @Test
     public void testEndOfFile() {
         String text = "abc";
-        CharacterStream cs = new CharacterStreamV2(text);
+        CharacterStream cs = new CharacterStreamImpl(text);
         assertEquals(text.charAt(0), cs.get());
         assertEquals(text.charAt(1), cs.next().get());
         assertEquals(text.charAt(2), cs.next().get());
@@ -24,7 +27,7 @@ class CharacterStreamTest {
     @Test
     public void testNewline() {
         String text = "abc\ntva";
-        CharacterStream cs = new CharacterStreamV2(text);
+        CharacterStream cs = new CharacterStreamImpl(text);
         assertEquals(1, cs.line());
         cs.next();
         cs.next();
@@ -38,7 +41,7 @@ class CharacterStreamTest {
     @Test
     public void testPosition() {
         String text = "abc\ntva";
-        CharacterStream cs = new CharacterStreamV2(text);
+        CharacterStream cs = new CharacterStreamImpl(text);
         assertEquals(1, cs.position());
         cs.next();
         assertEquals(2, cs.position());
@@ -55,7 +58,7 @@ class CharacterStreamTest {
     @Test
     public void testRewind() {
         String text = "abc";
-        CharacterStream cs = new CharacterStreamV2(text);
+        CharacterStream cs = new CharacterStreamImpl(text);
         assertEquals(text.charAt(0), cs.get());
         assertEquals(text.charAt(1), cs.next().get());
         assertEquals(text.charAt(2), cs.next().get());
@@ -70,7 +73,7 @@ class CharacterStreamTest {
     @Test
     public void testWithMark() {
         String text = "test var foo";
-        MarkableCharacterStream cs = new CharacterStreamV2(text);
+        MarkableCharacterStream cs = new CharacterStreamImpl(text);
         cs.next(); // e
         cs.next(); // s
         cs.next(); // t
